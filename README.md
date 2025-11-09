@@ -1,67 +1,91 @@
-# 🧠 AI-Based Energy Forecasting for Net-Zero Smart Cities
+# 🔋 Forecasting Urban Energy for Net-Zero Smart Cities  
+### A Hybrid Attention-based Deep Learning Approach  
 
 **Authors:**  
-Minh Hoang (FPT University & RMIT University)  
-Khuong Nguyen-Vinh (VSB – Technical University of Ostrava)  
-Minh-Tai Vo (RMIT University)
+- **Minh Anh Hoang** – Swinburne University Vietnam · FPT University, HCM City, Vietnam  
+- **Thuan Do Thanh Hoang** – FPT University, HCM City, Vietnam  
+- **Tuan Phu Phan** – FPT University, HCM City, Vietnam  
+- **Khuong Nguyen-Vinh** – RMIT University, HCM City, Vietnam  
 
-📄 **Publication Year:** 2025  
-🏫 **Affiliations:** RMIT University Vietnam · FPT University · VSB–TU Ostrava  
-📘 **Keywords:** Artificial Intelligence, Energy Forecasting, Smart Cities, Machine Learning, Deep Learning, Renewable Energy, Net-Zero
+📘 *Published in the Vietnam Journal of Computer Science (World Scientific Publishing)*  
+📄 [View Official Publication (FETC)](https://science.fpt.edu.vn/FETC/AcceptedPaper/PaperDetail?id=9a3f5017-99c5-4e68-a6ee-08ddcd88f2d6)  
+🗓️ **Accepted:** November 2025  
+📧 Corresponding Author: minhha10@fe.edu.vn  
 
 ---
 
 ## 🌍 Overview
 
-This repository contains materials related to the research paper:
+This repository contains the code, documentation, and final paper for our research **“Forecasting Urban Energy for Net-Zero Smart Cities: A Hybrid Attention-based Approach.”**  
+The project proposes **two hybrid deep learning architectures** that integrate **Convolutional Neural Networks (CNNs)**, **Long Short-Term Memory (LSTM)**, and **Attention mechanisms** to enhance **short-term and day-ahead energy forecasting** in smart cities.
 
-> **“AI-based Energy Forecasting for Net-Zero Smart Cities.”**
-
-The study explores how **AI-driven forecasting** can optimize energy systems for sustainable, net-zero urban environments.  
-It integrates **machine learning**, **deep learning**, and **hybrid AI** models to predict energy consumption, generation, and demand dynamics across smart grids.
-
-The approach emphasizes **real-time data** from IoT sensors, weather prediction, and historical consumption — improving efficiency and resilience in urban energy management.
+Our models are evaluated on the **ENTSO-E European Energy Dataset (2019–2025)**, achieving state-of-the-art results across multiple forecasting horizons — demonstrating the critical role of hybrid AI models in **sustainable energy management** and **net-zero urban planning**.
 
 ---
 
-## ⚙️ Research Focus
+## 🧠 Research Highlights
 
-### 1. Core Objectives
-- Develop accurate, adaptive energy-forecasting frameworks using AI.  
-- Support **smart-grid optimization** and **renewable energy integration**.  
-- Address challenges of data quality, scalability, and cybersecurity.  
-- Propose hybrid deep learning models combining CNN, LSTM, GRU, and Attention mechanisms.
+| Model | Task | RMSE (MW) | MAE (MW) | MAPE (%) |
+|:------|:-----|:----------:|:---------:|:---------:|
+| **CNN-LSTM-Att.v2** | Single-Step Forecast | **106.96** | **80.22** | **1.07** |
+| **CNN-LSTM-Att.v1** | Multi-Step (Day-Ahead) Forecast | **438.11** | **315.32** | **4.18** |
+| XGBoost | Multi-Step | 500.59 | 346.36 | 4.61 |
+| GRU / LSTM | Multi-Step | 612.29 | 448.73 | 5.98 |
 
-### 2. Methodological Layers
-| Category | Example Models | Description |
-|-----------|----------------|--------------|
-| **Regression-based** | Linear Regression, SVR | Foundational models for short-term load and peak forecasting. |
-| **Time-Series** | ARMA, ARIMA, SARIMA | Capture seasonality and temporal dependencies. |
-| **Ensemble** | Random Forest, Bagging, XGBoost | Improve robustness and accuracy under uncertainty. |
-| **Deep Learning** | RNN, GRU, LSTM, Transformer | Model complex nonlinear relationships and long-range dependencies. |
-| **Hybrid** | CNN-LSTM-Attention, GRU-Attention | Combine strengths of multiple paradigms for state-of-the-art results. |
+✅ *CNN-LSTM-Att.v2* excels in real-time short-term forecasting (lightweight, efficient).  
+✅ *CNN-LSTM-Att.v1* delivers superior day-ahead prediction accuracy for centralized systems.
 
 ---
 
-## 🧩 Technical Contributions
+## ⚙️ Methodology
 
-- **Comprehensive literature review** across 30+ AI forecasting studies.  
-- **Model taxonomy** comparing regression, time-series, ensemble, deep, and hybrid approaches.  
-- **Benchmark results** from key works using real-world energy datasets.  
-- **Identified challenges**: data integrity, real-time scalability, privacy, and cybersecurity.  
-- **Future vision:** integration of **blockchain** for decentralized energy management and **federated learning** for privacy-preserving forecasting.
+### 🧩 Model Architecture
+
+Each model integrates:
+1. **CNN Encoder** – Extracts short-term temporal features via 1D convolutions.  
+2. **Stacked LSTM Layers** – Captures long-range sequential dependencies.  
+3. **Attention Mechanism** – Dynamically weighs relevant time steps to improve interpretability and prediction quality.  
+4. **Dense Output Layer** – Produces either single-step or 24-step (day-ahead) predictions.
+
+### 🔬 Formulation
+
+\[
+M(X) = \phi_{out} \circ \phi_{att} \circ \phi_{LSTM} \circ \phi_{CNN}(X)
+\]
+
+- Loss Function: Mean Squared Error (MSE)  
+- Optimizer: Adam (lr = 1e-4)  
+- Framework: TensorFlow / Keras  
+- Environment: Google Colab (Tesla T4 GPU)
 
 ---
 
-## 📊 Key Findings
+## 📊 Dataset
 
-| Model Type | Strengths | Limitations |
-|-------------|------------|-------------|
-| Regression | Simple & interpretable | Poor handling of nonlinearity |
-| Time-Series | Good for short-term trends | Requires tuning; less scalable |
-| Ensemble | High accuracy, robust | Computationally heavy |
-| Deep Learning | Learns complex patterns | Data-hungry; costly training |
-| Hybrid | State-of-the-art precision | Highest complexity & cost |
+**Dataset:** ENTSO-E (European Network of Transmission System Operators for Electricity)  
+**Period:** 2019 – 2025  
+**Features:**
+- Hourly electricity load (MW)
+- Temporal features: hour, weekday, month, year  
+**Preprocessing:**
+- Missing values removed  
+- Min-Max normalization  
+- Chronological split → Train (2019–2022), Validation (2023), Test (2024–2025)
+
+---
+
+## 📈 Results Visualization
+
+| Forecast Type | Description |
+|----------------|--------------|
+| **Single-Step Prediction** | CNN-LSTM-Att.v2 achieves <110 MW RMSE and <1.1% MAPE. |
+| **Multi-Step Day-Ahead** | CNN-LSTM-Att.v1 maintains <4.2% MAPE over 24-hour horizon. |
+| **Comparison** | Hybrid models outperform GRU, LSTM, Dense, and ensemble baselines. |
+
+Figures in the paper illustrate:
+- Predicted vs. Actual Load Curves  
+- Multi-Step Forecast Comparisons across Models  
+- Energy Distribution by Country (France, Luxembourg, Austria)
 
 ---
 
@@ -69,97 +93,94 @@ The approach emphasizes **real-time data** from IoT sensors, weather prediction,
 
 ```
 
-AI_Energy_Forecasting/
+Forecasting_Urban_Energy/
 ├── README.md
 ├── paper/
-│   └── AI_based_Energy_Forecasting_for_Net_Zero_Smart_Cities.pdf
+│   └── Forecasting_Urban_Energy_for_Net_Zero_Smart_Cities.pdf
 ├── src/
-│   ├── regression_models.py
-│   ├── time_series_models.py
-│   ├── ensemble_models.py
-│   ├── deep_learning/
-│   │   ├── lstm_forecast.py
-│   │   ├── gru_attention.py
-│   │   └── cnn_lstm_attention.py
+│   ├── model_cnn_lstm_att_v1.py
+│   ├── model_cnn_lstm_att_v2.py
+│   ├── baseline_lstm_gru.py
+│   ├── xgboost_baseline.py
 │   └── utils/
-│       └── data_preprocessing.py
+│       ├── data_loader.py
+│       └── preprocess.py
 └── notebooks/
 └── experiments.ipynb
 
 ````
 
-*(You can adapt the above layout depending on your implementation files.)*
-
 ---
 
-## 📈 Potential Applications
-- Smart-grid demand prediction  
-- Renewable energy optimization (solar, wind, EV charging)  
-- Urban sustainability dashboards  
-- Real-time energy market balancing  
+## 🧪 Reproduction Guide
 
----
-
-## 🛠️ Environment Setup (Example)
-
+### Setup
 ```bash
-# Clone repo
-git clone https://github.com/<your-username>/AI_Energy_Forecasting.git
-cd AI_Energy_Forecasting
-
-# Create environment
+git clone https://github.com/<your-username>/Forecasting_Urban_Energy.git
+cd Forecasting_Urban_Energy
 python -m venv venv
-source venv/bin/activate   # (or venv\Scripts\activate on Windows)
-
-# Install dependencies
+source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ````
+
+### Training
+
+```bash
+python src/model_cnn_lstm_att_v2.py --train --epochs 100
+```
+
+### Evaluation
+
+```bash
+python src/evaluate.py --model cnn_lstm_att_v2 --task multi_step
+```
+
+---
+
+## 🔍 Key Insights
+
+* **Hybridization Matters:** Combining CNNs, LSTMs, and Attention yields superior generalization.
+* **Model Depth vs. Efficiency:** Lightweight architectures (v2) are ideal for edge and real-time smart-meter applications.
+* **Explainability Challenge:** Future research should integrate SHAP, LIME, or Integrated Gradients to validate attention interpretability.
+* **Scalability:** Federated and blockchain-integrated forecasting systems can ensure decentralized, privacy-preserving smart-grid management.
 
 ---
 
 ## 📚 Citation
 
-If you use or reference this work, please cite:
+If you reference this work, please cite:
 
 ```bibtex
-@article{hoang2025ai_forecasting,
-  title={AI-based Energy Forecasting for Net-Zero Smart Cities},
-  author={Minh Hoang and Khuong Nguyen-Vinh and Minh-Tai Vo},
-  journal={RMIT & FPT University Joint Research Report},
-  year={2025},
-  publisher={School of Science, Engineering and Technology, RMIT University}
+@article{hoang2025hybridenergy,
+  title     = {Forecasting Urban Energy for Net-Zero Smart Cities: A Hybrid Attention-Based Approach},
+  author    = {Minh Anh Hoang and Thuan Do Thanh Hoang and Tuan Phu Phan and Khuong Nguyen-Vinh},
+  journal   = {Vietnam Journal of Computer Science},
+  publisher = {World Scientific Publishing},
+  year      = {2025},
+  url       = {https://science.fpt.edu.vn/FETC/AcceptedPaper/PaperDetail?id=9a3f5017-99c5-4e68-a6ee-08ddcd88f2d6}
 }
 ```
 
 ---
 
-## 📬 Contact
+## 🧭 Acknowledgement
 
-For collaboration or inquiries:
-📧 **[minhha10@fe.edu.vn](mailto:minhha10@fe.edu.vn)**
-🌐 [RMIT University Vietnam](https://www.rmit.edu.vn)
-🌐 [FPT University Vietnam](https://hcmuni.fpt.edu.vn)
+This work was supported by **Swinburne Vietnam**, **FPT University**, and **RMIT University Vietnam**.
+Special thanks to our advisors and collaborators for guidance throughout the research.
 
 ---
 
 ## 🪄 License
 
-This repository is for **academic and research use only.**
-Please contact the authors for permission before redistribution or commercial application.
-
----
-
-## ⭐ Acknowledgments
-
-This research was conducted collaboratively between:
-
-* **RMIT University, Vietnam**
-* **FPT University, Swinburne Vietnam**
-* **VSB – Technical University of Ostrava, Czech Republic**
+© 2025 Authors. All rights reserved.
+This repository is provided for **academic and research purposes**.
+Please contact the corresponding author for collaboration or reuse permissions.
 
 ---
 
 ```
 
-Would you like me to include a **“Results & Visuals”** section (with example charts/figures extracted from the paper and short explanations for each model family)? It would make the README look more like a mini-research showcase on GitHub.
+---
+
+Would you like me to extend this README with a **“Figure Gallery”** section that embeds key result plots (Predicted vs Actual, Multi-Step Forecast Comparison, Architecture Diagram) in Markdown format — suitable for a GitHub landing page?
 ```
