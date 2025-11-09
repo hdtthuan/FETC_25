@@ -1,9 +1,3 @@
-Here’s a professional **README.md** file tailored for your repository based on your uploaded PDF report **“AI-based Energy Forecasting for Net-Zero Smart Cities.”**
-It follows an academic-research style but stays GitHub-ready (clear structure, badges, installation note, citation section, etc.).
-
----
-
-```markdown
 # 🧠 AI-Based Energy Forecasting for Net-Zero Smart Cities
 
 **Authors:**  
